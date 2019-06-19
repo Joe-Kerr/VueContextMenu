@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>		
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/vuex/3.1.1/vuex.min.js"></script>
+		
+		<script src="../dist/contextMenu.umd.min.js"></script>
+		
+		<style>
+		section {
+			margin-bottom: 20px;	
+		}
+		
+		section > div {
+			display: inline-block;
+			text-align: center;
+			vertical-align: middle;
+			cursor: pointer;
+			border: 1px solid black;
+			padding: 10px;
+		}
+		
+		.menu {
+			padding: 5px;
+			
+			background-color: white;
+			border: 1px solid grey;
+			
+			-webkit-box-shadow: 5px 5px 2px 0px rgba(0,0,0,0.75);
+			-moz-box-shadow: 5px 5px 2px 0px rgba(0,0,0,0.75);
+			box-shadow: 5px 5px 2px 0px rgba(0,0,0,0.75);
+		}
+		
+		.bounce-enter-active {
+			animation: bounce-in .5s;
+		}
+		.bounce-leave-active {
+			animation: bounce-in .5s reverse;
+		}
+		@keyframes bounce-in {
+			0% {
+				transform: scale(0);
+			}
+			50% {
+				transform: scale(1.5);
+			}
+			100% {
+				transform: scale(1);
+			}
+		}		
+		</style>
+	</head>
+
+<body oncontextmenu="return false;">
+
+<div id="v"></div>
+
+<script>
+(function() {
+	const store = new Vuex.Store({});
+	
+	// Quick and *dirty* modal.
+	let lF = null;
+	const modalService = {
+		start: (el, callback)=>{
+			document.addEventListener("mousedown", function inlineListener(event) {				
+				lF = inlineListener;
+				if(el == event.target || el == event.target.parentNode) {return;}				
+				callback();
+				document.removeEventListener("mousedown", inlineListener);
+			});
+		},
+		stop: ()=>{if(lF != null) {document.removeEventListener("mousedown", lF); lF=null;}}
+	};
+	//
+	
+	Vue.use(contextMenu.default, {vuex: store, modalService});	  
+
+	window.v = new Vue({
+		el: "#v",
+		store,
+		template: `
+		<div>
+			<section>
+				<div v-contextmenu="{menu: 'demoMenu1', context: 'hello world'}" class="">Simple menu</div>
+			</section>
+			
+			<section>
+				<div v-contextmenu.left="{menu: 'demoMenu1', context: 'dlrow olleh'}" class="">The same but opened with a left click</div>
+			</section>
+			
+			<section>
+				<div v-contextmenu="{menu: 'demoMenu1', context: 'This text is provided on the context prop. But it can be any data.'}" class="">Notice that you can alter the context 'property'.</div>
+			</section>			
+			
+			<section>
+				<div v-contextmenu="{menu: 'demoMenu1', context: 'hello world'}" class="">Clicking while another one is opened, closes the other and opens a new one.</div>
+			</section>		
+			
+			<section>
+				<div v-contextmenu="{menu: 'demoMenu2'}" class="">Close by menu item. Oh, and, <strong>Vue transitions</strong> work as usual!</div>
+			</section>
+			
+			<section style="position: absolute; bottom: 0px; right: 0px;">
+				<div v-contextmenu="{menu: 'demoMenu1', context: 'No matter what - this is not going out of the viewport.'}" class="">Stays in viewport</div>
+			</section>
+		
+			
+			<context-menu menu="demoMenu1" class="menu" v-slot:default="menu">		
+				<h3>{{menu.context}}</h3>				
+				<p v-on:click="demo()">Say...</p>
+			</context-menu>	
+			
+			<transition name="bounce">
+				<context-menu menu="demoMenu2" class="menu" v-slot:default="menu">					
+					<p>{{menu.context}}</p>
+					<p v-on:click="menu.close">Close</p>
+				</context-menu>				
+			</transition>
+		</div>
+		`,
+		methods: {
+			demo() {alert("Hi!");}
+		}
+	
+	});
+})()
+</script>
+
+</body>
+</html>

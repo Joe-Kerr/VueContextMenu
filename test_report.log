@@ -1,0 +1,53 @@
+ MOCHA  Testing...
+
+
+
+  contextMenu/directive.js
+    √ Integration: inserted-listener-dispatch chain working
+    √ unbind cleans up listeners or throws
+    √ Dispatch only on left or right mouse button as provided in directive
+
+  contextMenu/index.js
+    √ index.js provides expected exports
+    √ installer calls all utility functions
+    √ installer ensures modalService, if provided, meets interface requirement
+    √ installer sets namespace
+    √ installer sets componentName
+    √ installer installs component globally
+
+  Integration tests
+    √ Install -> 'build custom menu' -> 'open menu' chain working (93ms)
+
+  contextMenu/store/index.js
+    √ getters.active returns active
+    √ getters.context returns context
+    √ getters.position returns x,y
+    √ mutations.set uses correct function
+    √ actions.open commits and resolves true if opening successful
+    √ actions.open throws if menu not provided
+    √ actions.open throws if event not provided [properly]
+    √ actions.close commits and resolves true
+
+  contextMenu/ui/index.js
+    √ default namespace is 'contextMenu'
+    √ computed.active calls store getter with proper namespace
+    √ computed.context calls store getter with proper namespace
+    √ computed.rawPosition calls store getter with proper namespace
+    √ methods.closeByModal calls store dispatch with proper namespace
+    √ methods.modalStart calls modal if provided
+    √ methods.modalStop calls modal if provided
+    √ methods.preventOutOfBounds does nothing if within bounds
+    √ methods.preventOutOfBounds does nothing if x exactly on left bound
+    √ methods.preventOutOfBounds corrects x if outside x-viewport
+    √ methods.preventOutOfBounds does nothing if y exactly on bottom bound
+    √ methods.preventOutOfBounds corrects y if outside y-viewport
+    √ methods.preventOutOfBounds corrects both x and y if out of viewport
+    √ methods.preventOutOfBounds corrects its correction if it went out of bounds
+    √ updated mediates calls only if menu is active
+    √ created overrides namespace if on $options
+    √ created checks if 'menu' is set
+
+
+  35 passing (131ms)
+
+ MOCHA  Tests completed successfully
