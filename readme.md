@@ -166,6 +166,9 @@ Notice:
 
 ## Versions
 
+### 1.0.2
+- Fixed: ohh, I see now: https://github.com/webpack/webpack/issues/7646
+
 ### 1.0.1
 - Changed: module import facilitated.
 
