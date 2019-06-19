@@ -16,6 +16,7 @@ Make everything a context menu: A context menu wrapper for Vue as a configurable
 
 - Vue >= 2.6 (v-slot)
 - Vuex
+- dev environment such as Vue Cli ("soft" requirement / recommended)
 
 
 ## Install
@@ -24,37 +25,43 @@ Make everything a context menu: A context menu wrapper for Vue as a configurable
 ```
 npm install @joe_kerr/vue-context-menu
 ```
-**2)**
+**2a) dev environment**
+
+```javascript
+import {installer, component} from "@joe_kerr/vue-context-menu"; 
 ```
-import contextMenu from "./where_you_put_it/src/index.js"; //Requires a dev environment.
+
+or
+
+```javascript
+import * as contextMenu_or_whatever from "@joe_kerr/vue-context-menu"; 
+```
+
+**2b) Pure node or browser**
+
+
+```javascript
+const contextMenu = require("path_to_node_modules/@joe_kerr/vue-context-menu/dist/contextMenu.common.js");
 ```
 
 or
 
 ```
-const contextMenu = require("./where_you_put_it/dist/contextMenu.common.min.js");
+<html> <script src="path_to_node_modules/@joe_kerr/vue-modal-dialogs/dist/contextMenu.umd.min.js"></script>
 ```
 
-or
 
-```
-<html> <script src=""./where_you_put_it/dist/contextMenu.umd.min.js""></script>
-```
 **3)**
-```
-Vue.use(contextMenu, configuration); //import default
-
-//or!!
-
-Vue.use(contextMenu.installer, configuration); //named import
+```javascript
+Vue.use(contextMenu.installer, configuration);
 ```
 
 **4)** [if not installed globally]
 
-```
-import {component} from "./where_you_put_it/src/index.js";
+```javascript
+import {component} from "@joe_kerr/vue-context-menu";
 //or
-const {component} = require("./where_you_put_it/dist/contextMenu.common.min.js");
+const {component} = require("path_to_node_modules/@joe_kerr/vue-context-menu/dist/contextMenu.common.js");
 //or
 const component = contextMenu.component;
 ```
@@ -158,6 +165,9 @@ Notice:
 - Just to be sure: this plugin is a wrapper that takes care of the logic of context menus. There is no items or styling/theming. 
 
 ## Versions
+
+### 1.0.1
+- Changed: module import facilitated.
 
 ### 1.0.0 
 - Public release.

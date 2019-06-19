@@ -16,7 +16,7 @@
     √ installer installs component globally
 
   Integration tests
-    √ Install -> 'build custom menu' -> 'open menu' chain working (93ms)
+    √ Install -> 'build custom menu' -> 'open menu' chain working (99ms)
 
   contextMenu/store/index.js
     √ getters.active returns active
@@ -48,6 +48,6 @@
     √ created checks if 'menu' is set
 
 
-  35 passing (131ms)
+  35 passing (138ms)
 
  MOCHA  Tests completed successfully
