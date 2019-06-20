@@ -118,20 +118,24 @@ While we are at it. Maybe check this out: [StackThemModals - a modal stack contr
 ### Build menu components
 
 ```
-<context-menu menu="specific_id" v-slot:default="mnu">		
- <h2>{{mnu.context.name}}</h2>
- <your-menu-item :menu="mnu"></your-menu-item>
- <button v-on:click="mnu.close">Close</button>
-</context-menu>	
+<context-menu menu="specific_id" v-slot:default="menuProps">		
+ //e.g.
+ <h2>{{menuProps.context.name}}</h2>
+ 
+ <your-menu-item :mProps="menuProps"></your-menu-item>
+ 
+ <button v-on:click="menuProps.close">Close</button>
+
+ </context-menu>	
 ```
 
 ### Configure component 
 
-#### v-slot:default="mnu"
+#### v-slot:default="menuProps"
 
-- mnu.context<var>: custom data
-- mnu.close<func>: function that closes the menu
-- mnu.onResize<func>: function that checks whether the menu is out of bounds and if so corrects position
+- menuProps.context<var>: custom data
+- menuProps.close<func>: function that closes the menu
+- menuProps.onResize<func>: function that checks whether the menu is out of bounds and if so corrects position
 
 #### prop "menu" (mandatory)
 
@@ -142,12 +146,13 @@ The unique menu name (id) with which you open this context menu.
 
 **via directive**
 
-```
+```html
 <img :src="file.path" v-contextmenu.left|right="{menu: 'specific_id', context: {name: file.name, what: "ever"}}" />
-
+```
 
 **via method**
 
+```javascript
 methods: {
  click(event, context) {
   this.$store.dispatch("contextMenu/open", {menu: 'specific_id', context, event});
@@ -158,8 +163,8 @@ methods: {
 Notice:
 
 - "specific_id" links the context menu and the opening directive.
-- "context" in v-contextmenu is passed as object property to "mnu" in v-slot.
-- The identifier in v-slot:default="mnu" (i.e. "mnu") can be named anything you like.
+- "context" in v-contextmenu is passed as object property to "menuProps" in v-slot.
+- The identifier in v-slot:default="menuProps" (i.e. "menuProps") can be named anything you like.
 - The directive modifier is optional and defaults to ".right".
 
 
