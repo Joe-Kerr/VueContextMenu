@@ -1,6 +1,6 @@
 # Context menu plugin for Vue
 
-Make everything a context menu: A context menu wrapper for Vue as a configurable plugin. 
+Make everything a context menu: A context menu **wrapper** for Vue as a configurable plugin. 
 
 
 ## Features
@@ -11,6 +11,11 @@ Make everything a context menu: A context menu wrapper for Vue as a configurable
 - Component name and store namespace configurable.
 - Right-click or left-click.
 - Does not go out of the viewport.
+
+## Demo
+
+[See it in action.](https://joe-kerr.github.io/VueContextMenu/)
+
 
 ## Requirements
 
@@ -165,6 +170,9 @@ Notice:
 - Just to be sure: this plugin is a wrapper that takes care of the logic of context menus. There is no items or styling/theming. 
 
 ## Versions
+
+### 1.0.3
+- Added: live demo with github pages
 
 ### 1.0.2
 - Fixed: ohh, I see now: https://github.com/webpack/webpack/issues/7646

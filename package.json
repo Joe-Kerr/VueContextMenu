@@ -1,6 +1,6 @@
 {
   "name": "@joe_kerr/vue-context-menu",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Context menu plugin. Easy install. Call with directive or store dispatch.",
   "main": "./src/index.js",
   "module": "./src/index.js",
