@@ -27,7 +27,7 @@ function insertedProxy(vuex, namespace) {
 		const mouse = (typeof context.modifiers === "undefined") ? RIGHT : (typeof context.modifiers.left !== "undefined") ? LEFT : RIGHT;
 				
 		function proxyListener(event) {
-			handleContextmenu(args.menu, args.context, event, namespace, vuex, mouse)
+			handleContextmenu(args.menu, args.context, event, namespace, vuex, mouse);
 		}			
 		
 		addEvent(el, proxyListener, listeners);			
