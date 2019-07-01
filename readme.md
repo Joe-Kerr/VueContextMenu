@@ -77,7 +77,7 @@ const component = contextMenu.component;
 
 ### Configuration
 
-Provide configuration properties on the second parameter of the Vue.use(plugin, config) call.
+Provide configuration properties on the second parameter of the Vue.use(plugin, **config**) call.
 
 #### vuex (mandatory)
 
@@ -126,7 +126,7 @@ While we are at it. Maybe check this out: [StackThemModals - a modal stack contr
  
  <button v-on:click="menuProps.close">Close</button>
 
- </context-menu>	
+</context-menu>	
 ```
 
 ### Configure component 
@@ -178,6 +178,9 @@ Notice:
 
 ### 1.0.4
 - Fixed: v-contextmenu directive blocked @click.right directive on the same tag/component (issue #2)
+- Fixed: .gitignore not in the file list of the build script
+- Changed: made live demo *prettier*
+- Changed: some refactoring
 
 ### 1.0.3
 - Added: live demo with github pages
