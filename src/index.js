@@ -50,6 +50,6 @@ export const installer = {install: function(Vue, config) {
 	cats4Vue.registerVuexModule(vuex, namespace, store);
 	installDirective(Vue, vuex, namespace);
 	installComponent(menu, Vue, options);
-}}
+}};
 
 export default installer;
