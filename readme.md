@@ -176,6 +176,9 @@ Notice:
 
 ## Versions
 
+### 1.0.4
+- Fixed: v-contextmenu directive blocked @click.right directive on the same tag/component (issue #2)
+
 ### 1.0.3
 - Added: live demo with github pages
 

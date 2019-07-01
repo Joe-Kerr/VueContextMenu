@@ -1382,6 +1382,21 @@ var staticRenderFns = []
       return this.$store.getters[name];
     }
   },
+  watch: {
+    active: function active(isActive) {
+      var _this = this;
+
+      if (isActive) {
+        this.$nextTick(function () {
+          _this.modalStart();
+
+          var menuPositionRelativeToMouse = _this.preventOutOfBounds();
+
+          _this.preventOverOrigin(menuPositionRelativeToMouse);
+        });
+      }
+    }
+  },
   data: function data() {
     return {
       namespace: "contextMenu",
@@ -1400,7 +1415,7 @@ var staticRenderFns = []
       this.modalStop();
     },
     modalStart: function modalStart() {
-      var _this = this;
+      var _this2 = this;
 
       var modal = this.$options.$_contextMenus_modal;
 
@@ -1409,7 +1424,7 @@ var staticRenderFns = []
       }
 
       modal.start(this.$refs.contextMenu, function () {
-        _this.closeByModal();
+        _this2.closeByModal();
       }, {
         stopPropagation: true
       });
@@ -1432,6 +1447,8 @@ var staticRenderFns = []
       var width = el.offsetWidth;
       var xNorm = window.pageXOffset;
       var yNorm = window.pageYOffset;
+      var yAxis = "top";
+      var xAxis = "left";
 
       if (y + height > yNorm + window.innerHeight) {
         y -= height;
@@ -1439,6 +1456,8 @@ var staticRenderFns = []
         if (y < yNorm) {
           y = yNorm;
         }
+
+        yAxis = "bottom";
       }
 
       if (x + width > xNorm + window.innerWidth) {
@@ -1447,16 +1466,39 @@ var staticRenderFns = []
         if (x < xNorm) {
           x = xNorm;
         }
+
+        xAxis = "right";
       }
 
       this.x = x;
       this.y = y;
-    }
-  },
-  updated: function updated() {
-    if (this.active) {
-      this.modalStart();
-      this.preventOutOfBounds();
+      return yAxis + xAxis;
+    },
+    preventOverOrigin: function preventOverOrigin(position) {
+      switch (position) {
+        case "topleft":
+          this.x += 1;
+          this.y += 1;
+          break;
+
+        case "topright":
+          this.x -= 1;
+          this.y += 1;
+          break;
+
+        case "bottomright":
+          this.x -= 1;
+          this.y -= 1;
+          break;
+
+        case "bottomleft":
+          this.x += 1;
+          this.y -= 1;
+          break;
+
+        default:
+          break;
+      }
     }
   },
   created: function created() {

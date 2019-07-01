@@ -20,6 +20,18 @@ export default {
 		}
 	},
 	
+	watch: {
+		active(isActive) {
+			if(isActive) {
+				this.$nextTick(()=>{
+					this.modalStart();
+					const menuPositionRelativeToMouse = this.preventOutOfBounds();
+					this.preventOverOrigin(menuPositionRelativeToMouse);				
+				});
+			}
+		}
+	},
+	
 	data() {
 		return {
 			namespace: "contextMenu",
@@ -66,12 +78,16 @@ export default {
 			const xNorm = window.pageXOffset;
 			const yNorm = window.pageYOffset;
 			
+			let yAxis = "top";
+			let xAxis = "left";
+			
 			if(y + height > (yNorm+window.innerHeight)) {
 				y -= height;
 				
 				if(y < yNorm) {
 					y = yNorm;
 				}
+				yAxis = "bottom";
 			}
 			
 			if(x + width > (xNorm+window.innerWidth)) {
@@ -80,17 +96,40 @@ export default {
 				if(x < xNorm) {
 					x  = xNorm;
 				}
+				xAxis = "right";
 			}
 
 			this.x = x;
-			this.y = y;				
-		}
-	},
-	
-	updated() {
-		if(this.active) {
-			this.modalStart();
-			this.preventOutOfBounds();			
+			this.y = y;		
+			
+			return yAxis+xAxis;
+		},
+		
+		preventOverOrigin(position) {
+			switch(position) {
+				case "topleft":
+					this.x += 1;
+					this.y += 1;
+				break;
+				
+				case "topright":
+					this.x -= 1;
+					this.y += 1;				
+				break;		
+				
+				case "bottomright":
+					this.x -= 1;
+					this.y -= 1;				
+				break;
+				
+				case "bottomleft":
+					this.x += 1;
+					this.y -= 1;				
+				break;		
+
+				default:
+				break;
+			}		
 		}
 	},
 	

@@ -53,6 +53,24 @@ test("computed.rawPosition calls store getter with proper namespace", ()=>{
 	assert.equal(sample.computed.rawPosition.call(context), "result");		
 });
 
+
+test("watch.active inits menu on nextTick if this menu became active", ()=>{
+	let called = 0;
+	const context = {
+		modalStart: ()=>{called++},
+		preventOutOfBounds: ()=>{called++},
+		preventOverOrigin: ()=>{called++},
+		$nextTick: (callback)=>{called++; callback();}
+	};
+	
+	sample.watch.active.call(context, true);
+	assert.equal(called, 4);	
+	
+	sample.watch.active.call(context, false);
+	assert.equal(called, 4);
+});
+
+
 test("methods.closeByModal calls store dispatch with proper namespace", ()=>{
 	let param;
 	const namespace = "helloWorld";
@@ -157,21 +175,64 @@ test("methods.preventOutOfBounds corrects its correction if it went out of bound
 	assert.equal(context.y, 400);
 });
 
-
-test("updated mediates calls only if menu is active", ()=>{
-	let called = 0;
-	const context = {
-		active: true,
-		modalStart: ()=>{called++},
-		preventOutOfBounds: ()=>{called++}
-	};
+test("methods.preventOutOfBounds returns (new) position of menu relative to mouse", ()=>{
+	let context;
 	
-	sample.updated.call(context);
+	//no correction
+	context = getContextForPreventOutOfBounds();
+	assert.equal(sample.methods.preventOutOfBounds.call(context), "topleft");
 	
-	context.active = false;
-	sample.updated.call(context);	
-	assert.equal(called, 2);
+	//correction x - width
+	context = getContextForPreventOutOfBounds();
+	context.rawPosition.x = 781;
+	sample.methods.preventOutOfBounds.call(context);	
+	assert.equal(sample.methods.preventOutOfBounds.call(context), "topright");
+	
+	//correction y - height
+	context = getContextForPreventOutOfBounds();
+	context.rawPosition.y = 956;
+	sample.methods.preventOutOfBounds.call(context);	
+	assert.equal(sample.methods.preventOutOfBounds.call(context), "bottomleft");
+	
+	//correct x - width, y - height
+	context = getContextForPreventOutOfBounds();
+	context.rawPosition.x = 781;
+	context.rawPosition.y = 956;
+	assert.equal(sample.methods.preventOutOfBounds.call(context), "bottomright");
 });
+
+test("methods.preventOverOrigin increments x and y if top-left corner over mouse", ()=>{
+	const context = {x: 10, y: 11};
+	
+	sample.methods.preventOverOrigin.call(context, "topleft");	
+	assert.equal(context.x, 11);
+	assert.equal(context.y, 12);	
+});
+
+test("methods.preventOverOrigin decrements x and increments y if top-right corner over mouse", ()=>{
+	const context = {x: 10, y: 11};
+	
+	sample.methods.preventOverOrigin.call(context, "topright");	
+	assert.equal(context.x, 9);
+	assert.equal(context.y, 12);		
+});
+
+test("methods.preventOverOrigin increments x and decrements y if bottom-left corner over mouse", ()=>{
+	const context = {x: 10, y: 11};
+	
+	sample.methods.preventOverOrigin.call(context, "bottomleft");	
+	assert.equal(context.x, 11);
+	assert.equal(context.y, 10);	
+});
+
+test("methods.preventOverOrigin decrements x and y if bottom-right corner over mouse", ()=>{
+	const context = {x: 10, y: 11};
+	
+	sample.methods.preventOverOrigin.call(context, "bottomright");	
+	assert.equal(context.x, 9);
+	assert.equal(context.y, 10);		
+});
+
 
 test("created overrides namespace if on $options", ()=>{
 	const context = {namespace: "123", $options: {}, menu: 1};

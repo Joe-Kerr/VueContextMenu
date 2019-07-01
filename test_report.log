@@ -16,7 +16,7 @@
     √ installer installs component globally
 
   Integration tests
-    √ Install -> 'build custom menu' -> 'open menu' chain working (99ms)
+    √ Install -> 'build custom menu' -> 'open menu' chain working (93ms)
 
   contextMenu/store/index.js
     √ getters.active returns active
@@ -33,6 +33,7 @@
     √ computed.active calls store getter with proper namespace
     √ computed.context calls store getter with proper namespace
     √ computed.rawPosition calls store getter with proper namespace
+    √ watch.active inits menu on nextTick if this menu became active
     √ methods.closeByModal calls store dispatch with proper namespace
     √ methods.modalStart calls modal if provided
     √ methods.modalStop calls modal if provided
@@ -43,11 +44,15 @@
     √ methods.preventOutOfBounds corrects y if outside y-viewport
     √ methods.preventOutOfBounds corrects both x and y if out of viewport
     √ methods.preventOutOfBounds corrects its correction if it went out of bounds
-    √ updated mediates calls only if menu is active
+    √ methods.preventOutOfBounds returns (new) position of menu relative to mouse
+    √ methods.preventOverOrigin increments x and y if top-left corner over mouse
+    √ methods.preventOverOrigin decrements x and increments y if top-right corner over mouse
+    √ methods.preventOverOrigin increments x and decrements y if bottom-left corner over mouse
+    √ methods.preventOverOrigin decrements x and y if bottom-right corner over mouse
     √ created overrides namespace if on $options
     √ created checks if 'menu' is set
 
 
-  35 passing (138ms)
+  40 passing (135ms)
 
  MOCHA  Tests completed successfully

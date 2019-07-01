@@ -27,7 +27,7 @@ test("Install -> 'build custom menu' -> 'open menu' chain working", ()=>{
 	assert.ok(wrapper.contains("#ctxmnu1"));
 	assert.ok(!wrapper.contains("#menu1"));
 	
-	store.dispatch("contextMenu/open", {menu: 'demoMenu1', context, event: {pageX:1, pageY:2}});
+	store.dispatch("contextMenu/open", {menu: 'demoMenu1', context: "from dispatch call", event: {pageX:1, pageY:2}});
 	
 	assert.ok(wrapper.contains("#menu1"));
 	

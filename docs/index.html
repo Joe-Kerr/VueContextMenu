@@ -103,6 +103,10 @@
 			
 			<section>
 				<div v-contextmenu="{menu: 'demoMenu1', context: 'hello world'}" class="">Clicking while another one is opened, closes the other and opens a new one.</div>
+			</section>	
+			
+			<section>
+				<div @click.right="noconflict" v-contextmenu="{menu: 'demoMenu1', context: 'hello world'}" class="">No conflicts with other click events. <span>{{check}}</span></div>
 			</section>		
 			
 			<section>
@@ -127,8 +131,13 @@
 			</transition>
 		</div>
 		`,
+		data() {
+			return {check: ""}
+		},
 		methods: {
-			demo() {alert("Hi!");}
+			demo() {alert("Hi!");},
+			
+			noconflict() {this.check="Check! Right click from @click successful."; setTimeout(()=>{this.check="";}, 1000);}
 		}
 	
 	});
