@@ -29,7 +29,8 @@
 		}
 		
 		.menu {
-			padding: 5px;
+			padding-left: 22px;
+			
 			
 			background-color: white;
 			border: 1px solid grey;
@@ -37,6 +38,33 @@
 			-webkit-box-shadow: 5px 5px 2px 0px rgba(0,0,0,0.75);
 			-moz-box-shadow: 5px 5px 2px 0px rgba(0,0,0,0.75);
 			box-shadow: 5px 5px 2px 0px rgba(0,0,0,0.75);
+		}
+		
+		.menu > h3 {
+			margin: 0px;
+			padding-right: 5px;
+			border-left: 2px ridge #f3f3f3;
+			background-color: #f8f8f8;
+		}
+		
+		.menu > div {
+			margin: 0px;
+			padding: 5px;
+			border-left: 2px ridge #f3f3f3;
+			cursor: pointer;
+		}
+		
+		.menu > div:hover {
+			background-color: #fafafa;
+		}
+		
+		.sep {
+			border-left: 2px ridge #f3f3f3;
+			margin: 0px;
+		}
+		
+		.disabled {
+			color: #dfdfdf;
 		}
 		
 		.bounce-enter-active {
@@ -120,13 +148,17 @@
 			
 			<context-menu menu="demoMenu1" class="menu" v-slot:default="menu">		
 				<h3>{{menu.context}}</h3>				
-				<p v-on:click="demo()">Say...</p>
+				<div v-on:click="demo()">Say...</div>
+				<hr class="sep" />
+				<div class="disabled">dummy 1</div>
+				<div class="disabled">dummy 2</div>
+				<div class="disabled">dummy 3</div>
 			</context-menu>	
 			
 			<transition name="bounce">
 				<context-menu menu="demoMenu2" class="menu" v-slot:default="menu">					
-					<p>{{menu.context}}</p>
-					<p v-on:click="menu.close">Close</p>
+					<h3>{{menu.context}}</h3>
+					<div v-on:click="menu.close">Close</div>
 				</context-menu>				
 			</transition>
 		</div>
