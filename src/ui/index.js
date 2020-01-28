@@ -58,7 +58,7 @@ export default {
 			const modal = this.$options.$_contextMenus_modal;
 			if(modal === null) {return;}
 
-			modal.start(this.$refs.contextMenu, ()=>{this.closeByModal()}, {stopPropagation: true});			
+			modal.start(this.$refs.contextMenu, ()=>{this.closeByModal()}, {stopPropagation: false});			
 		},
 		
 		modalStop() {
