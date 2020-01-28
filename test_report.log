@@ -1,3 +1,5 @@
+Unit test report 
+
  MOCHA  Testing...
 
 
@@ -16,7 +18,7 @@
     √ installer installs component globally
 
   Integration tests
-    √ Install -> 'build custom menu' -> 'open menu' chain working (93ms)
+    √ Install -> 'build custom menu' -> 'open menu' chain working 
 
   contextMenu/store/index.js
     √ getters.active returns active
@@ -35,8 +37,9 @@
     √ computed.rawPosition calls store getter with proper namespace
     √ watch.active inits menu on nextTick if this menu became active
     √ methods.closeByModal calls store dispatch with proper namespace
-    √ methods.modalStart calls modal if provided
-    √ methods.modalStop calls modal if provided
+    √ methods.modalStart calls modal service, if provided
+    √ methods.modalStart calls modal service with expected parameters
+    √ methods.modalStop calls modal service, if provided
     √ methods.preventOutOfBounds does nothing if within bounds
     √ methods.preventOutOfBounds does nothing if x exactly on left bound
     √ methods.preventOutOfBounds corrects x if outside x-viewport
@@ -53,6 +56,6 @@
     √ created checks if 'menu' is set
 
 
-  40 passing (135ms)
+  41 passing 
 
  MOCHA  Tests completed successfully
