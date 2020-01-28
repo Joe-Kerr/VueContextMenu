@@ -80,7 +80,7 @@ test("methods.closeByModal calls store dispatch with proper namespace", ()=>{
 	assert.equal(param, "helloWorld/close");		
 });
 
-test("methods.modalStart calls modal if provided", ()=>{
+test("methods.modalStart calls modal service, if provided", ()=>{
 	let called = 0;
 	const modal = {start: ()=>{called++}}
 	const context = {$options: {$_contextMenus_modal: modal}, $refs: {contextMenu: null}};
@@ -93,7 +93,7 @@ test("methods.modalStart calls modal if provided", ()=>{
 	assert.equal(called, 1);
 });
 
-test("methods.modalStart calls modal with expected parameters", ()=>{
+test("methods.modalStart calls modal service with expected parameters", ()=>{
 	let params;
 	let cbResult;
 	const modal = {start: (el, cb, cfg)=>{params = {el, cb, cfg}}};
@@ -111,7 +111,7 @@ test("methods.modalStart calls modal with expected parameters", ()=>{
 	assert.strictEqual(params.cfg.stopPropagation, false);
 });
 
-test("methods.modalStop calls modal if provided", ()=>{
+test("methods.modalStop calls modal service, if provided", ()=>{
 	let called = 0;
 	const modal = {stop: ()=>{called++}}
 	const context = {$options: {$_contextMenus_modal: modal}};
