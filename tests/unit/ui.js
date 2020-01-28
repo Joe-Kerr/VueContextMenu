@@ -93,6 +93,24 @@ test("methods.modalStart calls modal if provided", ()=>{
 	assert.equal(called, 1);
 });
 
+test("methods.modalStart calls modal with expected parameters", ()=>{
+	let params;
+	let cbResult;
+	const modal = {start: (el, cb, cfg)=>{params = {el, cb, cfg}}};
+	const context = {
+		$options: {$_contextMenus_modal: modal}, 
+		$refs: {contextMenu: 123},
+		closeByModal: ()=>{cbResult = 456;}
+	};
+
+	sample.methods.modalStart.call(context);
+	params.cb()
+	
+	assert.equal(params.el, 123);
+	assert.equal(cbResult, 456);
+	assert.strictEqual(params.cfg.stopPropagation, false);
+});
+
 test("methods.modalStop calls modal if provided", ()=>{
 	let called = 0;
 	const modal = {stop: ()=>{called++}}
